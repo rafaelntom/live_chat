@@ -9,7 +9,6 @@ export const validateRequestBody =
       return next();
     } catch (error) {
       if (error instanceof z.ZodError) {
-        console.log(error);
         return response
           .status(400)
           .json({ message: error.flatten().fieldErrors });

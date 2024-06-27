@@ -1,5 +1,4 @@
-import { Schema, model, InferSchemaType } from "mongoose";
-import { UserType } from "../../schemas/auth.schema";
+import { Schema, model } from "mongoose";
 
 const userSchema = new Schema({
   fullName: {
@@ -16,11 +15,6 @@ const userSchema = new Schema({
     required: true,
     minlenght: 6,
   },
-  confirmPassword: {
-    type: String,
-    required: true,
-    minlenght: 6,
-  },
   gender: {
     type: String,
     required: true,
@@ -31,8 +25,12 @@ const userSchema = new Schema({
     default: "",
     required: false,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
-const User = model<UserType>("User", userSchema);
+const User = model("User", userSchema);
 
 export { User, userSchema };
