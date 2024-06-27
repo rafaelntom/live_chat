@@ -1,7 +1,8 @@
-var bcrypt = require("bcryptjs");
 import { Request, Response } from "express";
 import { User } from "../database/models/user.model";
 import { UserType } from "../schemas/auth.schema";
+import bcrypt from "bcryptjs";
+import { generateJWTandSetCookie } from "../utils/generateJWT";
 
 export const signup = async (req: Request, res: Response) => {
   try {
@@ -27,6 +28,7 @@ export const signup = async (req: Request, res: Response) => {
     });
 
     await newUser.save();
+    generateJWTandSetCookie(newUser._id.toString(), res);
 
     return res.status(201).json({ message: "User created successfully" });
   } catch (error) {
@@ -35,7 +37,7 @@ export const signup = async (req: Request, res: Response) => {
 };
 
 export const login = async (req: Request, res: Response) => {
-  return res.status(200).json({ message: "login route" });
+  return res.status(200).json({ message: "not finished" });
 };
 
 export const logout = async (req: Request, res: Response) => {

@@ -17,6 +17,7 @@
     },
     "include": [
         "backend/**/*.ts",
+        "backend/utils/generateJWT.js",
     ],
     "exclude": [
         "node_modules"
