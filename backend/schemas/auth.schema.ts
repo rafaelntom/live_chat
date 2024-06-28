@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-// Define the base schema
+// Base SCHEMA for user interaction
 const BaseUserSchema = z.object({
   fullName: z.string().min(1),
   username: z.string().min(1),

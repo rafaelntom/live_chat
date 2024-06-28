@@ -64,3 +64,14 @@ export const logout = async (req: Request, res: Response) => {
   res.clearCookie("token");
   return res.status(204).json();
 };
+
+//* TEMPORARY USAGE TO GET USER ID:
+export const getUserId = async (req: Request, res: Response) => {
+  const user = await User.findOne({ username: req.body.username });
+
+  if (!user) {
+    return res.status(400).json({ message: "Invalid credentials" });
+  }
+
+  return res.status(200).json({ userId: user._id });
+};

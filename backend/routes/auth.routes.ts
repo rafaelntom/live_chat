@@ -19,4 +19,7 @@ authRouter.post(
 
 authRouter.post("/logout", authController.logout);
 
+//! TEMPORARY ROUTE TO GET THE USER ID FOR MESSAGES
+authRouter.post("/", authController.getUserId);
+
 export default authRouter;
