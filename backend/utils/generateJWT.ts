@@ -13,5 +13,8 @@ export const generateJWTandSetCookie = (userid: string, response: Response) => {
     maxAge: 3600000,
     httpOnly: true,
     sameSite: "strict",
+    secure: process.env.NODE_ENV === "production",
   });
+
+  return token;
 };
