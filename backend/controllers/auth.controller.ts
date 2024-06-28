@@ -65,7 +65,7 @@ export const logout = async (req: Request, res: Response) => {
   return res.status(204).json();
 };
 
-//* TEMPORARY USAGE TO GET USER ID:
+//! * TEMPORARY USAGE TO GET USER ID:
 export const getUserId = async (req: Request, res: Response) => {
   const user = await User.findOne({ username: req.body.username });
 
