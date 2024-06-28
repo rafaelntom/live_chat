@@ -10,7 +10,6 @@ const BaseUserSchema = z.object({
   profilePicture: z.string().optional(),
 });
 
-//TODO - CHECK IF THE NEW USER BASE SCHEMA IS WORKING WITH INSOMNIA REQUESTS
 const ZodUserSchema = BaseUserSchema.refine(
   (data) => data.password === data.confirmPassword,
   {
