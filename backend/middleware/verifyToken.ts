@@ -22,6 +22,8 @@ export const verifyToken = (
       }
 
       // There was a type problem storing the user in the req.user, so it is being stored in the res.locals
+      // (req as any).user = user;
+
       res.locals = { ...res.locals, user: decoded.user_id };
       return next();
     }
