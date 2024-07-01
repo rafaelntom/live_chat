@@ -67,11 +67,7 @@ export const logout = async (req: Request, res: Response) => {
 
 //! * TEMPORARY USAGE TO GET USER ID:
 export const getUserId = async (req: Request, res: Response) => {
-  const user = await User.findOne({ username: req.body.username });
+  const user = await User.find().select("-password");
 
-  if (!user) {
-    return res.status(400).json({ message: "Invalid credentials" });
-  }
-
-  return res.status(200).json({ userId: user._id });
+  return res.status(200).json({ message: user });
 };
