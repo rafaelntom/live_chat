@@ -6,7 +6,7 @@ dotenv.config();
 export const mongooseDBConnection = async () => {
   try {
     await mongoose.connect(process.env.ATLAS_URI!);
-    console.log("🎉 Successfully connected to MongoDB 🎉");
+    console.log("Successfully connected to MongoDB");
   } catch (error) {
     console.error(`Error connecting to mongoDB: ${error}`);
     process.exit(1);
@@ -15,6 +15,6 @@ export const mongooseDBConnection = async () => {
 
 app.listen(process.env.PORT || 5000, async () => {
   await mongooseDBConnection().then(() => {
-    console.log(` 🚀 Server is running on port ${process.env.PORT || 5000} 🚀`);
+    console.log(`Server is running on port: ${process.env.PORT || 5000} 🚀`);
   });
 });

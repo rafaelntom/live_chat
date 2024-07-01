@@ -46,9 +46,13 @@ const read = async (req: Request, res: Response) => {
 
     const conversation = await Conversation.findOne({
       participants: { $all: [senderId, userToChatWith] },
-    }).populate("messages");
+    })
+      .populate("messages")
+      .sort({ createdAt: 1 });
 
-    return res.status(200).json(conversation);
+    if (!conversation) return res.status(200).json([]);
+
+    return res.status(200).json(conversation.messages);
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Internal server error" });

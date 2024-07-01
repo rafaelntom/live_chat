@@ -21,6 +21,7 @@ export const verifyToken = (
         return res.status(404).json({ message: "User not found" });
       }
 
+      // There was a type problem storing the user in the req.user, so it is being stored in the res.locals
       res.locals = { ...res.locals, user: decoded.user_id };
       return next();
     }

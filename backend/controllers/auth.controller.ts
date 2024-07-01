@@ -64,10 +64,3 @@ export const logout = async (req: Request, res: Response) => {
   res.clearCookie("token");
   return res.status(204).json();
 };
-
-//! * TEMPORARY USAGE TO GET USER ID:
-export const getUserId = async (req: Request, res: Response) => {
-  const user = await User.find().select("-password");
-
-  return res.status(200).json({ message: user });
-};
