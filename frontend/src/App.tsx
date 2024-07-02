@@ -1,11 +1,12 @@
 import "./App.css";
+import Home from "./pages/home/Home";
+// import Login from "./pages/login/Login";
+// import Signup from "./pages/signup/Signup";
 
 function App() {
   return (
-    <body className="h-screen bg-sky-800">
-      <h1 className="text-white text-2xl">Testing</h1>
-
-      <button className="btn btn-outline">This is a button</button>
+    <body className="h-screen bg-sky-800 flex flex-col items-center justify-center">
+      <Home />
     </body>
   );
 }
