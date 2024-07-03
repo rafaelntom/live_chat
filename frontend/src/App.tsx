@@ -1,11 +1,9 @@
-import "./App.css";
+import "./App.css"; // You can remove this if not needed
 import Home from "./pages/home/Home";
-// import Login from "./pages/login/Login";
-// import Signup from "./pages/signup/Signup";
 
 function App() {
   return (
-    <body className="h-screen bg-sky-800 flex flex-col items-center justify-center">
+    <body className="h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-blue-600 to-blue-900">
       <Home />
     </body>
   );
