@@ -9,7 +9,7 @@ export const MessagesContainer = () => {
       {noChatSelected ? (
         <EmptyMessagesContainer />
       ) : (
-        <div className="flex flex-col md:min-w-[450px] rounded-sm bg-blue-950  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-80 font-open-sans rounded-r-lg">
+        <div className="flex flex-col md:min-w-[450px] rounded-sm bg-black  bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-70 font-open-sans rounded-r-lg">
           <header className="bg-sky-950 px-4 py-2 mb-2 font-roboto ">
             <span className="text-gray-200 font-bold">To: </span>
             <span className="text-gray-200 font-bold">John Doe</span>

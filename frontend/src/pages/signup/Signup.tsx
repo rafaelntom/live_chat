@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 interface NewUser {
   fullName: string;
@@ -124,6 +125,9 @@ const Signup: React.FC = () => {
           >
             Create User
           </button>
+          <Link to={"/"} className="mt-2 text-white font-open-sans text-center">
+            Already have an account?
+          </Link>
         </form>
       </div>
     </div>
