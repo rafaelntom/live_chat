@@ -2,7 +2,7 @@ import { IoSend } from "react-icons/io5";
 
 const MessageInput = () => {
   return (
-    <div className="px-3 py-2 bg-sky-950">
+    <div className="px-3 py-2 bg-sky-950 rounded-br-lg">
       <form action="" className="flex relative items-center text-white">
         <input
           type="text"

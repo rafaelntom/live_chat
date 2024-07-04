@@ -1,14 +1,4 @@
-import { FieldErrors, Path, UseFormRegister } from "react-hook-form";
-import { FormValues } from "../pages/signup/Signup";
-
-interface FormInputProps {
-  label: string;
-  name: Path<FormValues>;
-  register: UseFormRegister<FormValues>;
-  errors: FieldErrors<FormValues>;
-  placeholder?: string;
-  type?: string;
-}
+import { FormInputProps } from "../types/interfaces";
 
 export const FormInput = ({
   label,
@@ -19,7 +9,7 @@ export const FormInput = ({
   type = "text",
 }: FormInputProps) => {
   return (
-    <label htmlFor={name} className="flex flex-col gap-2">
+    <label htmlFor={name} className="flex flex-col ">
       <span>{label}</span>
       <input
         type={type}
@@ -29,7 +19,9 @@ export const FormInput = ({
         placeholder={placeholder}
       />
       {errors[name] && (
-        <span className="text-red-500 text-sm">{errors[name]?.message}</span>
+        <span className="text-red-500 text-xs text-opacity-80 mt-1">
+          {errors[name]?.message}
+        </span>
       )}
     </label>
   );

@@ -1,41 +1,25 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { z } from "zod";
 import FormInput from "../../components/FormInput";
-
-export interface FormValues {
-  fullName: string;
-  username: string;
-  password: string;
-  confirmPassword: string;
-  gender: "male" | "female";
-}
-
-const signUpSchema = z
-  .object({
-    fullName: z.string().min(1, { message: "Full name is required" }),
-    username: z.string().min(1, { message: "Username is required" }),
-    password: z.string().min(1, { message: "Password is required" }),
-    confirmPassword: z
-      .string()
-      .min(1, { message: "Confirm password is required" }),
-    gender: z.enum(["male", "female"], { message: "Gender is required" }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
+import { FormValues } from "../../types/interfaces";
+import { signUpSchema } from "../../types/schemas";
+import useSignup from "../../hooks/useSignup";
 
 const Signup = () => {
   const {
     register,
     handleSubmit,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(signUpSchema) });
 
-  const onSubmit = handleSubmit((data) => {
+  const { loading, signup } = useSignup();
+
+  const onSubmit = handleSubmit(async (data) => {
     console.log(data);
+
+    // Call the signup function here
+    await signup(data);
   });
 
   return (
@@ -48,7 +32,7 @@ const Signup = () => {
         <form className="flex flex-col font-roboto gap-4" onSubmit={onSubmit}>
           <FormInput
             errors={errors}
-            label="* Full Name:"
+            label="Full Name:"
             name="fullName"
             register={register}
             placeholder="John Doe"
@@ -57,7 +41,7 @@ const Signup = () => {
 
           <FormInput
             errors={errors}
-            label="* Username:"
+            label="Username:"
             name="username"
             register={register}
             placeholder="johndoe"
@@ -66,7 +50,7 @@ const Signup = () => {
 
           <FormInput
             errors={errors}
-            label="* Password:"
+            label="Password:"
             name="password"
             register={register}
             placeholder=""
@@ -75,15 +59,15 @@ const Signup = () => {
 
           <FormInput
             errors={errors}
-            label="* Confirm Password:"
+            label="Confirm Password:"
             name="confirmPassword"
             register={register}
             placeholder=""
             type="password"
           />
 
-          <p>* Gender:</p>
-          <div className="flex px-[2px] flex-col gap-4">
+          <p>Gender:</p>
+          <div className="flex px-[2px] flex-col gap-2">
             <label className="flex items-center gap-2">
               <input
                 type="radio"
@@ -103,7 +87,7 @@ const Signup = () => {
               <span className="">Female</span>
             </label>
             {errors.gender && (
-              <span className="text-red-500 text-sm">
+              <span className="text-red-500 text-xs text-opacity-80 mt-1">
                 {errors.gender.message}
               </span>
             )}
@@ -111,17 +95,14 @@ const Signup = () => {
 
           <button
             type="submit"
+            disabled={loading}
             className="btn btn-success font-open-sans text-base tracking-wide text-white mt-4 disabled:bg-red-500 disabled:text-white
             disabled:text-opacity-45 disabled:cursor-not-allowed"
             aria-label="Create User"
           >
             Create User
           </button>
-          {!isValid && (
-            <p className="text-center text-sm">
-              Make sure to fill all the * required fields
-            </p>
-          )}
+
           <Link to={"/"} className="mt-2 text-white font-open-sans text-center">
             Already have an account?
           </Link>

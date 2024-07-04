@@ -4,10 +4,12 @@ import express from "express";
 import cookieparse from "cookie-parser";
 import messageRouter from "./routes/messages.routes";
 import userRouter from "./routes/user.routes";
+import cors from "cors";
 
 dotenv.config();
 const app = express();
 
+app.use(cors({ origin: "http://localhost:3000" }));
 app.use(cookieparse());
 app.use(express.json());
 
