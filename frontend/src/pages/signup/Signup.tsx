@@ -1,37 +1,42 @@
-import React, { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { z } from "zod";
+import FormInput from "../../components/FormInput";
 
-interface NewUser {
+export interface FormValues {
   fullName: string;
   username: string;
   password: string;
+  confirmPassword: string;
   gender: "male" | "female";
-  profilePicture?: string;
 }
 
-const Signup: React.FC = () => {
-  const [user, setUser] = useState<NewUser>({
-    fullName: "",
-    username: "",
-    password: "",
-    gender: "male",
-    profilePicture: "",
+const signUpSchema = z
+  .object({
+    fullName: z.string().min(1, { message: "Full name is required" }),
+    username: z.string().min(1, { message: "Username is required" }),
+    password: z.string().min(1, { message: "Password is required" }),
+    confirmPassword: z
+      .string()
+      .min(1, { message: "Confirm password is required" }),
+    gender: z.enum(["male", "female"], { message: "Gender is required" }),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    setUser({
-      ...user,
-      [name]: value,
-    });
-  };
+const Signup = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { isValid, errors },
+  } = useForm<FormValues>({ resolver: zodResolver(signUpSchema) });
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("Form submitted:", user); // Replace with your form submission logic
-  };
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -40,91 +45,83 @@ const Signup: React.FC = () => {
           Sign Up <span className="text-sky-400">Tozini Live Chat</span>
         </h1>
 
-        <form
-          className="flex flex-col font-roboto gap-4"
-          onSubmit={handleSubmit}
-        >
-          <label htmlFor="fullName" className="flex flex-col gap-2">
-            Full Name:
-            <input
-              type="text"
-              id="fullName"
-              name="fullName"
-              value={user.fullName}
-              onChange={handleChange}
-              required
-              className="input input-bordered"
-            />
-          </label>
+        <form className="flex flex-col font-roboto gap-4" onSubmit={onSubmit}>
+          <FormInput
+            errors={errors}
+            label="* Full Name:"
+            name="fullName"
+            register={register}
+            placeholder="John Doe"
+            type="text"
+          />
 
-          <label htmlFor="username" className="flex flex-col gap-2">
-            Username:
-            <input
-              type="text"
-              id="username"
-              name="username"
-              value={user.username}
-              onChange={handleChange}
-              required
-              className="input input-bordered"
-            />
-          </label>
+          <FormInput
+            errors={errors}
+            label="* Username:"
+            name="username"
+            register={register}
+            placeholder="johndoe"
+            type="text"
+          />
 
-          <label htmlFor="password" className="flex flex-col gap-2">
-            Password:
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={user.password}
-              onChange={handleChange}
-              required
-              className="input input-bordered"
-            />
-          </label>
+          <FormInput
+            errors={errors}
+            label="* Password:"
+            name="password"
+            register={register}
+            placeholder=""
+            type="password"
+          />
 
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="gender"
-              value="male"
-              checked={user.gender === "male"}
-              onChange={handleChange}
-              className="form-radio h-5 w-5 text-sky-400"
-            />
-            <span className="">Male</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="radio"
-              name="gender"
-              value="female"
-              checked={user.gender === "female"}
-              onChange={handleChange}
-              className="form-radio h-5 w-5 text-sky-400"
-            />
-            <span className="">Female</span>
-          </label>
+          <FormInput
+            errors={errors}
+            label="* Confirm Password:"
+            name="confirmPassword"
+            register={register}
+            placeholder=""
+            type="password"
+          />
 
-          <label htmlFor="profilePicture" className="flex flex-col gap-2">
-            Profile Picture URL:
-            <input
-              type="text"
-              id="profilePicture"
-              name="profilePicture"
-              value={user.profilePicture}
-              onChange={handleChange}
-              className="input input-bordered"
-            />
-          </label>
+          <p>* Gender:</p>
+          <div className="flex px-[2px] flex-col gap-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                {...register("gender")}
+                value="male"
+                className="form-radio h-5 w-5 text-sky-400"
+              />
+              <span className="">Male</span>
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                {...register("gender")}
+                value="female"
+                className="form-radio h-5 w-5 text-sky-400"
+              />
+              <span className="">Female</span>
+            </label>
+            {errors.gender && (
+              <span className="text-red-500 text-sm">
+                {errors.gender.message}
+              </span>
+            )}
+          </div>
 
           <button
             type="submit"
-            className="btn btn-success font-open-sans text-base tracking-wide text-white mt-4"
+            className="btn btn-success font-open-sans text-base tracking-wide text-white mt-4 disabled:bg-red-500 disabled:text-white
+            disabled:text-opacity-45 disabled:cursor-not-allowed"
             aria-label="Create User"
           >
             Create User
           </button>
+          {!isValid && (
+            <p className="text-center text-sm">
+              Make sure to fill all the * required fields
+            </p>
+          )}
           <Link to={"/"} className="mt-2 text-white font-open-sans text-center">
             Already have an account?
           </Link>

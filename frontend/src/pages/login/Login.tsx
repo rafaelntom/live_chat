@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Login = () => {
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
-      <div className="w-full p-6 rounded-lg shadow-md bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-80">
+      <div className="w-full p-6 rounded-lg shadow-md bg-neutral-900 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-80 flex flex-col">
         <h1 className="text-2xl font-semibold text-center pb-10 flex flex-col gap-2 font-open-sans">
           Login <span className="text-sky-400">Tozini Live Chat</span>
         </h1>
@@ -76,7 +76,13 @@ const Login = () => {
           </Link>
         </form>
 
-        {/* Style this later to the signup page */}
+        {/* REMOVE THIS AFTER DEPLOY */}
+        <Link
+          to={"home"}
+          className=" mt-2 text-white font-open-sans text-center"
+        >
+          Home
+        </Link>
       </div>
     </div>
   );
