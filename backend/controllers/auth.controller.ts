@@ -28,9 +28,12 @@ export const signup = async (req: Request, res: Response) => {
     });
 
     await newUser.save();
-    generateJWTandSetCookie(newUser._id.toString(), res);
+    const token = generateJWTandSetCookie(newUser._id.toString(), res);
 
-    return res.status(201).json({ message: "User created successfully" });
+    return res.status(201).json({
+      message: "User created successfully",
+      token,
+    });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }

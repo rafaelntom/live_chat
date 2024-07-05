@@ -6,6 +6,8 @@ import "./index.css";
 import Signup from "./pages/signup/Signup.tsx";
 import Login from "./pages/login/Login.tsx";
 import Home from "./pages/home/Home.tsx";
+import { AuthContextProvider } from "./context/AuthContext.tsx";
+import ProtectedRoute from "./pages/ProtectedRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -14,13 +16,19 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <Login /> },
       { path: "signup", element: <Signup /> },
-      { path: "home", element: <Home /> },
+      {
+        path: "home",
+        element: <ProtectedRoute />,
+        children: [{ path: "", element: <Home /> }],
+      },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthContextProvider>
+      <RouterProvider router={router} />
+    </AuthContextProvider>
   </React.StrictMode>
 );
