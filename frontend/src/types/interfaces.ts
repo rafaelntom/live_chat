@@ -16,3 +16,8 @@ export interface FormInputProps {
   placeholder?: string;
   type?: string;
 }
+
+export interface LoginFormValues {
+  username: string;
+  password: string;
+}

@@ -8,14 +8,20 @@ import Login from "./pages/login/Login.tsx";
 import Home from "./pages/home/Home.tsx";
 import { AuthContextProvider } from "./context/AuthContext.tsx";
 import ProtectedRoute from "./pages/ProtectedRoute.tsx";
+import PublicRoute from "./pages/PublicRoute.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      { path: "", element: <Login /> },
-      { path: "signup", element: <Signup /> },
+      {
+        element: <PublicRoute />, // Use PublicRoute here
+        children: [
+          { path: "", element: <Login /> },
+          { path: "signup", element: <Signup /> },
+        ],
+      },
       {
         path: "home",
         element: <ProtectedRoute />,
