@@ -1,6 +1,5 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 import { FormValues } from "../types/interfaces";
 import { useAuthContext } from "./useAuthContext";
 
@@ -11,8 +10,7 @@ interface ResponseData {
 
 const useSignup = () => {
   const [loading, setLoading] = useState(false);
-  const { setUserToken } = useAuthContext();
-  const navigate = useNavigate();
+  const { setToken } = useAuthContext();
 
   const signup = async (formData: FormValues) => {
     setLoading(true);
@@ -26,16 +24,14 @@ const useSignup = () => {
       });
 
       const responseData: ResponseData = await data.json();
-      console.log("Full Response Data:", responseData);
 
       if (data.status !== 201) {
         toast.error(responseData.message || "Error occurred");
       } else {
         toast.success(responseData.message!);
-        setUserToken(responseData.token!);
+        console.log(responseData.token);
+        setToken(responseData.token!);
         setLoading(false);
-        await new Promise((resolve) => setTimeout(resolve, 2000));
-        navigate("/");
       }
     } catch (error: unknown) {
       console.error(error);

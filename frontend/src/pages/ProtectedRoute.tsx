@@ -3,7 +3,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 
 const ProtectedRoute = () => {
   const { userToken } = useAuthContext();
+
   console.log(userToken);
+
+  return userToken ? <Outlet /> : <Outlet />;
+
   return userToken ? <Outlet /> : <Navigate to="/" />;
 };
 

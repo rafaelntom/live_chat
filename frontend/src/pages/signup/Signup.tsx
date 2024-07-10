@@ -1,12 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import FormInput from "../../components/FormInput";
 import { FormValues } from "../../types/interfaces";
 import { signUpSchema } from "../../types/schemas";
 import useSignup from "../../hooks/useSignup";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Signup = () => {
+  const { userToken } = useAuthContext();
+
+  console.log(userToken);
+
   const {
     register,
     handleSubmit,
@@ -21,6 +26,10 @@ const Signup = () => {
     // Call the signup function here
     await signup(data);
   });
+
+  if (userToken) {
+    return <Navigate to="/home" replace />;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-w-96 mx-auto">
@@ -100,7 +109,11 @@ const Signup = () => {
             disabled:text-opacity-45 disabled:cursor-not-allowed"
             aria-label="Create User"
           >
-            Create User
+            {loading ? (
+              <span className="loading loading-spinner"></span>
+            ) : (
+              "Sign Up"
+            )}
           </button>
 
           <Link to={"/"} className="mt-2 text-white font-open-sans text-center">
