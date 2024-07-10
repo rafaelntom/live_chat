@@ -21,3 +21,15 @@ export interface LoginFormValues {
   username: string;
   password: string;
 }
+
+export interface User {
+  _id: string;
+  fullName: string;
+  username: string;
+  gender: "male" | "female";
+  profilePicture: string;
+}
+
+export interface UserListResponse {
+  userList: User[];
+}

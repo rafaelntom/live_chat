@@ -7,7 +7,7 @@ export const verifyToken = (
   res: Response,
   next: NextFunction
 ) => {
-  const token = req.cookies.token;
+  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {
     return res.status(401).json({ message: "Unauthorized" });
@@ -24,7 +24,7 @@ export const verifyToken = (
       // There was a type problem storing the user in the req.user, so it is being stored in the res.locals
       // (req as any).user = user;
 
-      res.locals = { ...res.locals, user: decoded.user_id };
+      res.locals.user = decoded.user_id;
       return next();
     }
 

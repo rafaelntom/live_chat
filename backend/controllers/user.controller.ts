@@ -3,6 +3,7 @@ import { User } from "../database/models/user.model";
 
 const listUsers = async (req: Request, res: Response) => {
   const { user: loggedInUser } = res.locals;
+  console.log(loggedInUser);
 
   try {
     const userList = await User.find({ _id: { $ne: loggedInUser } }).select([
