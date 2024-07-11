@@ -4,12 +4,11 @@ import toast from "react-hot-toast";
 
 const useLogin = () => {
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { setToken } = useAuthContext();
 
   const login = async (username: string, password: string) => {
     setLoading(true);
-    setErrorMessage(null);
+
     try {
       const response = await fetch("http://localhost:5000/api/auth/login", {
         method: "POST",
@@ -19,22 +18,17 @@ const useLogin = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        setErrorMessage(errorData.message);
-      }
-
       const data = await response.json();
+      if (!data.success) throw new Error(data.message);
       setToken(data.token);
     } catch (error) {
-      console.error(errorMessage);
-      toast.error(errorMessage);
+      toast.error("Invalid username or password");
     } finally {
       setLoading(false);
     }
   };
 
-  return { login, loading, error: errorMessage };
+  return { login, loading };
 };
 
 export default useLogin;

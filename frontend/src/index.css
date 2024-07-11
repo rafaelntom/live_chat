@@ -9,20 +9,20 @@
     --font-open-sans: 'Open Sans', sans-serif;
 }
 
-/* dark mode looking scrollbar */
-::-webkit-scrollbar {
-    width: 8px;
+
+html ::-webkit-scrollbar {
+    @apply w-2 rounded-full;
 }
 
-::-webkit-scrollbar-track {
-    background: #555;
+html ::-webkit-scrollbar-track {
+    @apply bg-gray-700;
+    @apply rounded-full;
 }
 
-::-webkit-scrollbar-thumb {
-    background: #121212;
-    border-radius: 5px;
+html ::-webkit-scrollbar-thumb {
+    @apply bg-gray-900 rounded-md;
 }
 
-::-webkit-scrollbar-thumb:hover {
-    background: #242424;
+html ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-100;
 }

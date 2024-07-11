@@ -10,12 +10,12 @@ const Conversation: React.FC<ConversationProps> = ({ conversation }) => {
   return (
     <>
       <div
-        className={`flex gap-4 items-center hover:bg-sky-700 rounded p-2 py-1 cursor-pointer mt-1 ${
+        className={`flex gap-4 items-center justify-center hover:bg-sky-700 rounded p-2 py-1 cursor-pointer my-1 ${
           isSelected && "bg-sky-700"
         }`}
         onClick={() => updateCurrentConversation(conversation)}
       >
-        <div className="">
+        <div className="flex items-center justify-center">
           <div className="avatar online">
             <div className="w-12 rounded-full">
               <img src={conversation.profilePicture} alt="user avatar" />

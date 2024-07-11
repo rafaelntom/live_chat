@@ -1,0 +1,16 @@
+html ::-webkit-scrollbar {
+    @apply w-2 rounded-full;
+}
+
+html ::-webkit-scrollbar-track {
+    @apply bg-gray-700;
+    @apply rounded-full;
+}
+
+html ::-webkit-scrollbar-thumb {
+    @apply bg-gray-900 rounded-md;
+}
+
+html ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-100;
+}
