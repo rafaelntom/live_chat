@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import { UserListResponse } from "../types/interfaces";
+import { ConversationListResponse } from "../types/interfaces";
 import { useAuthContext } from "./useAuthContext";
 
 const useGetConversations = () => {
-  const [loading, setLoading] = useState(false);
-  const [conversations, setConversations] = useState<UserListResponse[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [conversations, setConversations] = useState<ConversationListResponse>(
+    []
+  );
 
   const { userToken } = useAuthContext();
 
@@ -35,7 +37,7 @@ const useGetConversations = () => {
     };
 
     getConversations();
-  }, []);
+  }, [userToken]);
 
   return { loading, conversations };
 };

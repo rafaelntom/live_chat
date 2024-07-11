@@ -29,7 +29,6 @@ const useSignup = () => {
         toast.error(responseData.message || "Error occurred");
       } else {
         toast.success(responseData.message!);
-        console.log(responseData.token);
         setToken(responseData.token!);
         setLoading(false);
       }

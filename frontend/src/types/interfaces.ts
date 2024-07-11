@@ -22,7 +22,7 @@ export interface LoginFormValues {
   password: string;
 }
 
-export interface User {
+export interface Conversation {
   _id: string;
   fullName: string;
   username: string;
@@ -30,6 +30,8 @@ export interface User {
   profilePicture: string;
 }
 
-export interface UserListResponse {
-  userList: User[];
+export type ConversationListResponse = Conversation[];
+
+export interface ConversationProps {
+  conversation: Conversation;
 }

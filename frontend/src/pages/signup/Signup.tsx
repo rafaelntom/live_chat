@@ -10,8 +10,6 @@ import { useAuthContext } from "../../hooks/useAuthContext";
 const Signup = () => {
   const { userToken } = useAuthContext();
 
-  console.log(userToken);
-
   const {
     register,
     handleSubmit,
@@ -21,9 +19,6 @@ const Signup = () => {
   const { loading, signup } = useSignup();
 
   const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-
-    // Call the signup function here
     await signup(data);
   });
 
