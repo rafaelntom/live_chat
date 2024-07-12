@@ -26,8 +26,6 @@ export const useSendMessage = () => {
       );
 
       const data = await response.json();
-      console.log(data);
-
       updateMessages([...messages, data.message]);
     } catch (error) {
       console.error(error);

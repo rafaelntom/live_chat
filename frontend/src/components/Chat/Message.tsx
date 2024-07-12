@@ -1,4 +1,7 @@
-const Message = () => {
+import { MessageInterface } from "../../types/interfaces";
+
+const Message = ({ message }: { message: MessageInterface }) => {
+  console.log(message);
   return (
     <div className="chat chat-end">
       <div className="chat-image avatar">
@@ -9,7 +12,7 @@ const Message = () => {
           />
         </div>
       </div>
-      <div className="chat-bubble text-white bg-sky-700">Hey, what's up!</div>
+      <div className="chat-bubble text-white bg-sky-700">{message.text}</div>
       <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">
         10:12
       </div>

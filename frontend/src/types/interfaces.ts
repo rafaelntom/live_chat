@@ -35,3 +35,15 @@ export type ConversationListResponse = Conversation[];
 export interface ConversationProps {
   conversation: Conversation;
 }
+
+export interface MessageInterface {
+  _id: string;
+  senderId: string;
+  receiverId: string;
+  text: string;
+  status: "sent" | "delivered" | "read";
+}
+
+export interface MessageProps {
+  message: MessageInterface;
+}

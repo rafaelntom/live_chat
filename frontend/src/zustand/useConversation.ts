@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import { Conversation } from "../types/interfaces";
+import { Conversation, MessageInterface } from "../types/interfaces";
 
 interface ConversationState {
   currentConversation: Conversation | null;
-  messages: string[];
+  messages: MessageInterface[];
   updateCurrentConversation: (currentConversation: Conversation | null) => void;
-  updateMessages: (messages: string[]) => void;
+  updateMessages: (messages: MessageInterface[]) => void;
 }
 
 const useConversation = create<ConversationState>((set) => ({
