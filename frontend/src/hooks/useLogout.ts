@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "./useAuthContext";
+import axiosInstance from "../utils/axiosInstace";
 
 const useLogout = () => {
   const [loading, setLoading] = useState(false);
@@ -10,12 +11,7 @@ const useLogout = () => {
   const logout = async () => {
     setLoading(true);
     try {
-      await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await axiosInstance.post("/auth/logout");
       localStorage.removeItem("chat-user");
       setUserToken(null);
     } catch (error) {

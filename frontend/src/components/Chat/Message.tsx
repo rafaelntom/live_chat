@@ -1,7 +1,7 @@
-import { MessageInterface } from "../../types/interfaces";
+import { FC } from "react";
+import { MessageProps } from "../../types/interfaces";
 
-const Message = ({ message }: { message: MessageInterface }) => {
-  console.log(message);
+const Message: FC<MessageProps> = ({ message }) => {
   return (
     <div className="chat chat-end">
       <div className="chat-image avatar">
