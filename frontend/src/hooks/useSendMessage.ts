@@ -1,32 +1,25 @@
 import { useState } from "react";
 import useConversation from "../zustand/useConversation";
+import axiosInstance from "../utils/axiosInstace";
 
 export const useSendMessage = () => {
   const [loading, setLoading] = useState(false);
 
   const { currentConversation, messages, updateMessages } = useConversation();
 
-  const userToken = JSON.parse(localStorage.getItem("chat-user") || "{}");
-
   const sendMessage = async (message: string) => {
     if (!currentConversation) return;
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `/api/message/send/${currentConversation._id}`,
-        {
-          method: "POST",
-          body: JSON.stringify({ message }),
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userToken}`,
-          },
-        }
+      const response = await axiosInstance.post(
+        `/message/send/${currentConversation._id}`,
+        { message: message }
       );
 
-      const data = await response.json();
-      updateMessages([...messages, data.message]);
+      if (response.status !== 201) throw new Error("Failed to send message");
+
+      updateMessages([...messages, response.data.text]);
     } catch (error) {
       console.error(error);
     } finally {
