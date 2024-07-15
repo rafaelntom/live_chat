@@ -57,7 +57,15 @@ export const login = async (req: Request, res: Response) => {
 
     const token = generateJWTandSetCookie(user._id.toString(), res);
 
-    return res.status(200).json({ token: token });
+    return res
+      .status(200)
+      .json({
+        token: token,
+        profilePicture: user.profilePicture,
+        _id: user._id,
+        fullName: user.fullName,
+        username: user.username,
+      });
   } catch (error) {
     console.error(error);
   }

@@ -44,6 +44,8 @@ export interface MessageInterface {
   receiverId: string;
   text: string;
   status: "sent" | "delivered" | "read";
+  createdAt: string;
+  profilePicture: string;
 }
 
 export interface MessageProps {

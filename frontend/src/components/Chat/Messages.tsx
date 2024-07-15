@@ -5,12 +5,14 @@ import MessageSkeleton from "./MessageSkeleton";
 const Messages = () => {
   const { loading, messages } = useGetMessages();
 
+  console.log(messages, loading);
+
   return (
     <div
       className={
         messages.length == 0
           ? "px-4 overflow-hidden flex flex-col pb-10"
-          : "px-4 overflow-auto flex flex-col pb-10"
+          : "px-4 overflow-auto flex flex-col pb-12 mb-5"
       }
     >
       {!loading &&

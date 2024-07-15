@@ -19,7 +19,7 @@ export const useSendMessage = () => {
 
       if (response.status !== 201) throw new Error("Failed to send message");
 
-      updateMessages([...messages, response.data.text]);
+      updateMessages([...messages, response.data]);
     } catch (error) {
       console.error(error);
     } finally {

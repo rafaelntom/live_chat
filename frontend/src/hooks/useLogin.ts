@@ -21,6 +21,9 @@ const useLogin = () => {
         toast.error("An error occurred");
         throw new Error("An error occurred");
       }
+
+      console.log(response);
+      localStorage.setItem("token", JSON.stringify(response.data));
       setToken(response.data.token);
     } catch (error) {
       if (error instanceof AxiosError) {

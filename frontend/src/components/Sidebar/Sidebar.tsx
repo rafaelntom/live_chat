@@ -8,7 +8,7 @@ const Sidebar = () => {
   const { logout } = useLogout();
 
   return (
-    <div className="border-r border-slate-500 p-4 flex flex-col bg-sky-950 rounded-l-lg w-min max-w-[300px]">
+    <div className="border-r border-slate-500 p-4 flex flex-col bg-sky-950 rounded-l-lg w-min max-w-[300px] min-h-full">
       <SearchInput />
       <div className="divider px-3"></div>
       <UserList />
