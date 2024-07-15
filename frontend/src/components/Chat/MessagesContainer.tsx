@@ -35,7 +35,7 @@ export const MessagesContainer = () => {
 
 export const EmptyMessagesContainer = () => {
   return (
-    <div className="flex flex-col md:min-w-[450px] rounded-sm bg-sky-950 font-open-sans items-center justify-center rounded-r-lg gap-4 py-10">
+    <div className="flex flex-col md:min-w-[450px] rounded-sm bg-sky-950 font-open-sans items-center justify-center rounded-r-lg gap-4 p-10">
       <h1 className="text-white font-bold text-3xl">👋 Welcome 👋</h1>
       <h2 className="text-white text-3xl"></h2>
       <IoIosChatbubbles size={100} className="text-sky-600" />

@@ -34,6 +34,8 @@ export type ConversationListResponse = Conversation[];
 
 export interface ConversationProps {
   conversation: Conversation;
+  emoji: string;
+  lastIndex: boolean;
 }
 
 export interface MessageInterface {

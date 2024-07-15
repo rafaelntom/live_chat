@@ -6,7 +6,13 @@ const Messages = () => {
   const { loading, messages } = useGetMessages();
 
   return (
-    <div className="px-4 overflow-auto flex flex-col">
+    <div
+      className={
+        messages.length == 0
+          ? "px-4 overflow-hidden flex flex-col pb-10"
+          : "px-4 overflow-auto flex flex-col pb-10"
+      }
+    >
       {!loading &&
         messages.length > 0 &&
         messages.map((message) => {

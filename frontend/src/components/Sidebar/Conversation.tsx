@@ -2,7 +2,11 @@ import React from "react";
 import { ConversationProps } from "../../types/interfaces";
 import useConversation from "../../zustand/useConversation";
 
-const Conversation: React.FC<ConversationProps> = ({ conversation }) => {
+const Conversation: React.FC<ConversationProps> = ({
+  conversation,
+  emoji,
+  lastIndex,
+}) => {
   const { currentConversation, updateCurrentConversation } = useConversation();
 
   const isSelected = currentConversation?._id === conversation._id;
@@ -28,11 +32,11 @@ const Conversation: React.FC<ConversationProps> = ({ conversation }) => {
             <p className="font-open-sans  text-lg text-white">
               {conversation.username}
             </p>
-            <span>🎃</span>
+            <span>{emoji}</span>
           </div>
         </div>
       </div>
-      <div className="divider my-0 py-0 h-1"></div>
+      <div className={lastIndex ? "" : "divider my-0 py-0 h-1"}></div>
     </>
   );
 };
