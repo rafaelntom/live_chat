@@ -4,7 +4,9 @@ import { getRandomEmoji } from "../../utils/emojis";
 import Conversation from "./Conversation";
 
 const UserList = () => {
-  const { conversations, loading } = useGetConversations();
+  const { loading, conversations } = useGetConversations();
+
+  // Log rendering
 
   const conversationList = conversations.map(
     (conversation: IConversation, index: number) => (
@@ -12,7 +14,7 @@ const UserList = () => {
         conversation={conversation}
         key={conversation._id}
         emoji={getRandomEmoji()}
-        lastIndex={conversations.length - 1 == index}
+        lastIndex={conversations.length - 1 === index}
       />
     )
   );

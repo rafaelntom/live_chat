@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ConversationListResponse } from "../types/interfaces";
-import { useAuthContext } from "./useAuthContext";
 import axiosInstance from "../utils/axiosInstace";
 
 const useGetConversations = () => {
@@ -8,8 +7,6 @@ const useGetConversations = () => {
   const [conversations, setConversations] = useState<ConversationListResponse>(
     []
   );
-
-  const { userToken } = useAuthContext();
 
   useEffect(() => {
     const getConversations = async () => {
@@ -31,9 +28,12 @@ const useGetConversations = () => {
     };
 
     getConversations();
-  }, [userToken]);
+  }, []);
 
-  return { loading, conversations };
+  return {
+    loading,
+    conversations,
+  };
 };
 
 export default useGetConversations;

@@ -1,11 +1,19 @@
+import { useEffect, useRef } from "react";
 import useGetMessages from "../../hooks/useGetMessages";
 import Message from "./Message";
 import MessageSkeleton from "./MessageSkeleton";
 
 const Messages = () => {
   const { loading, messages } = useGetMessages();
+  const lastMessageRef = useRef<HTMLDivElement>(null);
 
   console.log(messages, loading);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 500);
+  }, [messages]);
 
   return (
     <div
@@ -18,7 +26,11 @@ const Messages = () => {
       {!loading &&
         messages.length > 0 &&
         messages.map((message) => {
-          return <Message key={message._id} message={message} />;
+          return (
+            <div className="" key={message._id} ref={lastMessageRef}>
+              <Message message={message} />
+            </div>
+          );
         })}
       {loading && [...Array(4)].map((_, i) => <MessageSkeleton key={i} />)}
       {!loading && messages.length == 0 ? (

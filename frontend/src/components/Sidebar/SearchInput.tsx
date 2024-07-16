@@ -1,8 +1,14 @@
+import { useState } from "react";
 import { IoSearchSharp } from "react-icons/io5";
 
 const SearchInput = () => {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (searchTerm.trim() === "") {
+      return;
+    }
   };
 
   return (
@@ -10,6 +16,8 @@ const SearchInput = () => {
       <input
         type="text"
         placeholder="Search…"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
         className="input input-bordered rounded-full"
       />
       <button
@@ -21,4 +29,5 @@ const SearchInput = () => {
     </form>
   );
 };
+
 export default SearchInput;
