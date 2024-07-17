@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { Conversation } from "../database/models/conversation.model";
 import { Message } from "../database/models/message.model";
+import { getReceiverSocketId, io } from "../server";
 
 const send = async (req: Request, res: Response) => {
   try {
@@ -31,6 +32,12 @@ const send = async (req: Request, res: Response) => {
     }
 
     //TODO: Emit a socket event to the receiver, so they can see the message in real-time (use socket.io) || TO BE IMPLEMENTED
+
+    const receiverSocketId = getReceiverSocketId(receiverId);
+
+    if (receiverId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
 
     return res.status(201).json(newMessage);
   } catch (error) {

@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { io, Socket } from "socket.io-client";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 export interface SocketContextType {
   socket: Socket | null;
@@ -13,10 +14,12 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
 
+  const { userToken } = useAuthContext();
+
   const userData = JSON.parse(localStorage.getItem("token")!);
 
   useEffect(() => {
-    if (userData._id) {
+    if (userData) {
       const socket = io("http://localhost:5000", {
         query: {
           userId: userData._id,
@@ -38,7 +41,7 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userToken]);
 
   return (
     <SocketContext.Provider value={{ socket, onlineUsers, setOnlineUsers }}>
