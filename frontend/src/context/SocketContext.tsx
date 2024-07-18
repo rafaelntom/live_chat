@@ -20,7 +20,7 @@ const SocketContextProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     if (userData) {
-      const socket = io("http://localhost:5000", {
+      const socket = io("https://live-chat-wzeb.onrender.com", {
         query: {
           userId: userData._id,
         },
