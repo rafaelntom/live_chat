@@ -8,7 +8,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: "http://localhost:5000",
+        target: "https://live-chat-wzeb.onrender.com",
         changeOrigin: true, // Add this line to ensure the origin is properly set
         secure: false, // Add this line if you're running HTTPS locally and encountering issues
       },

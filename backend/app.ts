@@ -12,7 +12,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: process.env.PORT || "5000",
+    origin: "https://live-chat-wzeb.onrender.com",
     credentials: true,
   })
 );
